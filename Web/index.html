@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Easy Discord Landing Page</title>
+    <style>
+        body {
+            background: linear-gradient(90deg, #1e1e1e, #1e1e1e);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header {
+            font-size: 1.75rem;
+            animation: fadeIn ease 1.5s;
+            -webkit-animation: fadeIn ease 1.5s;
+            -moz-animation: fadeIn ease 1.5s;
+            -o-animation: fadeIn ease 1.5s;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-moz-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-o-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-ms-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        button {
+            width: 260px;
+            height: 70px;
+            border: none;
+            outline: none;
+            background: #2f2f2f;
+            color: #fff;
+            font-size: 22px;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            margin: 2rem;
+        }
+
+        .check-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 40px;
+            box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            right: -40px;
+            opacity: 0;
+        }
+
+        .check-box svg {
+            width: 30px;
+            margin: 20px;
+        }
+
+        svg path {
+            stroke-width: 3;
+            stroke: #fff;
+            stroke-dasharray: 34;
+            stroke-dashoffset: 34;
+            stroke-linecap: round;
+        }
+
+        .active {
+            background: #ff2b75;
+            transition: 1s;
+        }
+
+        .active .check-box {
+            right: 0;
+            opacity: 1;
+            transition: 1s;
+        }
+
+        .active p {
+            margin-right: 125px;
+            transition: 1s;
+        }
+
+        .active svg path {
+            stroke-dashoffset: 0;
+            transition: 1s;
+            transition-delay: 1s;
+        }
+
+        .logo {
+            height: 100px;
+            margin: 0 0 1rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                font-size: 2rem;
+            }
+
+            .header {
+                font-size: 1rem;
+            }
+
+            .button {
+                font-size: 1rem;
+                padding: 1rem 2rem;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .container {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img alt="Logo" class="logo" src="https://img.logoipsum.com/250.svg">
+    <p class="header" id="success" style="display: none;">You can now return to the game.</p>
+    <p class="header" id="instructions">Almost there! Click the button below to</p>
+    <p class="header" id="error" style="display: none;">Something went wrong. Please return to the game and try again.</p>
+    
+    <button id="btn">
+        <p id="btnText">Confirm</p>
+        <div class="check-box">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="transparent"/>
+            </svg>
+        </div>
+    </button>
+
+    <script>
+        //Check the URL for any mentions of error
+        if (window.location.href.includes("error") || !window.location.href.includes("code")) {
+            document.getElementById("instructions").style.display = "none";
+            document.getElementById("success").style.display = "none";
+            document.getElementById("btn").style.display = "none";
+            document.getElementById("error").style.display = "block";
+        } else {
+
+            //Get the Discord authorization code from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+
+            const btn = document.querySelector("#btn");
+            const btnText = document.querySelector("#btnText");
+
+            btn.onclick = () => {
+                navigator.clipboard.writeText(code).then(() => {
+                    //Fade elements out
+                    document.getElementById("instructions").style.display = "none";
+                    document.getElementById("success").style.display = "block";
+                    btnText.innerHTML = "Thanks!";
+                    btn.classList.add("active");
+                });
+            };
+        }
+    </script>
+</div>
+</body>
+</html>
