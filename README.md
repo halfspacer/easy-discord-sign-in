@@ -1,4 +1,4 @@
-# Easy Discord Auth for Unity
+# Easy Discord Sign-In
 A Unity Plugin for easy Discord User Authentication
 
 > [!NOTE]
